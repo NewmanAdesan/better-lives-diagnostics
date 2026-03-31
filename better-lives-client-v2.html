@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Better Lives, Inc. — Strategic Growth Plan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #F9F6F1;
+      --bg-2: #F2EDE6;
+      --surface: #FFFFFF;
+      --surface-2: #F5F1EC;
+      --border: rgba(30, 24, 16, 0.10);
+      --border-strong: rgba(30, 24, 16, 0.18);
+      --text: #1A1410;
+      --text-2: #3D3530;
+      --muted: #7A6E65;
+      --accent: #1D6FA4;
+      --accent-dim: rgba(29, 111, 164, 0.07);
+      --accent-border: rgba(29, 111, 164, 0.20);
+      --accent-light: #EFF6FB;
+      --success: #1A7A5E;
+      --success-dim: rgba(26, 122, 94, 0.07);
+      --success-border: rgba(26, 122, 94, 0.22);
+      --warm: #B45309;
+      --warm-dim: rgba(180, 83, 9, 0.07);
+      --warm-border: rgba(180, 83, 9, 0.20);
+      --purple: #6D3FA6;
+      --purple-dim: rgba(109, 63, 166, 0.07);
+      --purple-border: rgba(109, 63, 166, 0.20);
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'DM Sans', sans-serif;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      line-height: 1.65;
+    }
+
+    /* ─── PROGRESS BAR ─── */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: var(--accent);
+      z-index: 200;
+      transition: width 0.1s linear;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 60px;
+      background: rgba(249, 246, 241, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-brand {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    /* ─── LAYOUT ─── */
+    .page-section {
+      padding: 100px 40px 80px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .page-section:last-of-type {
+      border-bottom: none;
+    }
+
+    .section-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+
+    h2 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .subtitle {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--text-2);
+      line-height: 1.75;
+      max-width: 620px;
+      margin-bottom: 40px;
+    }
+
+    /* ─── REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ─── HERO ─── */
+    #hero {
+      padding: 140px 40px 100px;
+      background: linear-gradient(160deg, #EEF7FF 0%, var(--bg) 55%);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hero::after {
+      content: '';
+      position: absolute;
+      bottom: -60px;
+      right: -60px;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(29, 111, 164, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 22px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.2s;
+    }
+
+    #hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 5vw, 58px);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      color: var(--text);
+      max-width: 720px;
+      margin-bottom: 22px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.35s;
+    }
+
+    #hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-subline {
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--text-2);
+      line-height: 1.75;
+      max-width: 560px;
+      margin-bottom: 36px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.5s;
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.65s;
+    }
+
+    .hero-from {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .hero-from strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .hero-divider {
+      width: 1px;
+      height: 16px;
+      background: var(--border-strong);
+    }
+
+    .hero-tag {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      padding: 4px 10px;
+      border-radius: 2px;
+    }
+
+    /* ─── STAT GRID ─── */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3px;
+      margin-bottom: 36px;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      padding: 24px 20px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+    }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 30px;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 4px;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ─── DETAIL BLOCKS ─── */
+    .detail-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 26px 28px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .detail-block h4 {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .detail-block p {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-2);
+      line-height: 1.75;
+    }
+
+    .detail-block ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 6px;
+    }
+
+    .detail-block li {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-2);
+      line-height: 1.7;
+      padding: 6px 0 6px 20px;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .detail-block li:last-child {
+      border-bottom: none;
+    }
+
+    .detail-block li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 13px;
+    }
+
+    /* ─── PULL QUOTE ─── */
+    .pull-quote {
+      font-family: var(--font-display);
+      font-size: clamp(18px, 2.4vw, 24px);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text);
+      padding: 28px 32px;
+      background: var(--accent-light);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 4px 4px 0;
+      margin: 36px 0;
+      line-height: 1.5;
+    }
+
+    /* ─── COMPETITOR CARDS ─── */
+    .comp-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 26px 28px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+
+    .comp-card:hover {
+      border-color: var(--accent-border);
+      box-shadow: var(--shadow-md);
+    }
+
+    .comp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .comp-name {
+      font-family: var(--font-display);
+      font-size: 19px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .comp-type {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      padding: 3px 9px;
+      border-radius: 2px;
+    }
+
+    .comp-body {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-2);
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+
+    .comp-opportunity {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--success);
+      background: var(--success-dim);
+      border: 1px solid var(--success-border);
+      border-radius: 3px;
+      padding: 10px 14px;
+      line-height: 1.6;
+    }
+
+    .comp-opportunity strong {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 2px;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ─── QUESTION GROUPS ─── */
+    .q-section-intro {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-2);
+      line-height: 1.75;
+      max-width: 620px;
+      margin-bottom: 36px;
+    }
+
+    .q-group {
+      margin-bottom: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .q-group-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s;
+      gap: 14px;
+    }
+
+    .q-group-header:hover {
+      background: var(--bg-2);
+    }
+
+    .q-group-header-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .q-group-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .q-num-blue {
+      background: var(--accent-dim);
+      color: var(--accent);
+      border: 1px solid var(--accent-border);
+    }
+
+    .q-num-green {
+      background: var(--success-dim);
+      color: var(--success);
+      border: 1px solid var(--success-border);
+    }
+
+    .q-num-purple {
+      background: var(--purple-dim);
+      color: var(--purple);
+      border: 1px solid var(--purple-border);
+    }
+
+    .q-num-warm {
+      background: var(--warm-dim);
+      color: var(--warm);
+      border: 1px solid var(--warm-border);
+    }
+
+    .q-group-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.04em;
+    }
+
+    .q-group-sub {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--muted);
+    }
+
+    .q-group-count {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--muted);
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 10px;
+      letter-spacing: 0.05em;
+    }
+
+    .q-chevron {
+      font-size: 12px;
+      color: var(--muted);
+      transition: transform 0.25s;
+      flex-shrink: 0;
+    }
+
+    .q-group.open .q-chevron {
+      transform: rotate(180deg);
+    }
+
+    .q-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+      border-top: 0px solid var(--border);
+    }
+
+    .q-group.open .q-body {
+      max-height: 800px;
+      border-top-width: 1px;
+    }
+
+    .q-item {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-2);
+      padding: 13px 20px 13px 54px;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.6;
+      position: relative;
+    }
+
+    .q-item:last-child {
+      border-bottom: none;
+    }
+
+    .q-item::before {
+      content: '→';
+      position: absolute;
+      left: 20px;
+      top: 14px;
+      color: var(--accent);
+      font-size: 13px;
+    }
+
+    .q-note {
+      font-size: 13px;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--accent);
+      background: var(--accent-dim);
+      padding: 10px 20px 10px 54px;
+      border-bottom: 1px solid var(--accent-border);
+      line-height: 1.6;
+      position: relative;
+    }
+
+    .q-note::before {
+      content: 'ℹ';
+      position: absolute;
+      left: 20px;
+      top: 10px;
+      color: var(--accent);
+      font-size: 13px;
+      font-style: normal;
+    }
+
+    /* ─── PHASE FLOW ─── */
+    .phase-flow {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 3px;
+      margin-top: 32px;
+    }
+
+    .phase-step {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 22px 18px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .phase-step.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .phase-step.done {
+      border-color: var(--success-border);
+      background: var(--success-dim);
+    }
+
+    .phase-step.next {
+      border-color: var(--accent-border);
+      background: var(--accent-dim);
+    }
+
+    .phase-num {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .phase-step.done .phase-num {
+      color: var(--success);
+    }
+
+    .phase-step.next .phase-num {
+      color: var(--accent);
+    }
+
+    .phase-title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .phase-desc {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    .phase-status {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 9px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    .s-done {
+      background: var(--success-dim);
+      color: var(--success);
+      border: 1px solid var(--success-border);
+    }
+
+    .s-next {
+      background: var(--accent-dim);
+      color: var(--accent);
+      border: 1px solid var(--accent-border);
+    }
+
+    .s-pending {
+      background: rgba(0, 0, 0, 0.03);
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    /* ─── CLOSING QUOTE ─── */
+    .closing-block {
+      text-align: center;
+      padding: 60px 40px 80px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .closing-block blockquote {
+      font-family: var(--font-display);
+      font-size: clamp(18px, 2.5vw, 24px);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text-2);
+      line-height: 1.55;
+    }
+
+    .closing-block cite {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 16px;
+      font-style: normal;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center;
+      padding: 28px 40px;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 720px) {
+      nav {
+        padding: 0 20px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .page-section {
+        padding: 80px 20px 60px;
+      }
+
+      #hero {
+        padding: 120px 20px 80px;
+      }
+
+      .stat-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .phase-flow {
+        grid-template-columns: 1fr;
+      }
+
+      .comp-header {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="progress-bar"></div>
+
+  <nav>
+    <span class="nav-brand">Better Lives — Strategic Growth Plan</span>
+    <ul class="nav-links">
+      <li><a href="#business">Research</a></li>
+      <li><a href="#competitors">Competitors</a></li>
+      <li><a href="#questions">Questions</a></li>
+      <li><a href="#path">Path Forward</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Strategic Growth Plan · Healthcare · Maryland</p>
+      <h1>Building the digital engine behind <em>Better Lives</em></h1>
+      <p class="hero-subline">I've spent the past week studying your business, your website, and your competitors in the
+        Maryland healthcare staffing market. This document shares what I found — and what I need from you to finalize
+        the strategy.</p>
+      <div class="hero-meta">
+        <span class="hero-from">Prepared by <strong>Newman Adesan</strong></span>
+        <span class="hero-divider"></span>
+        <span class="hero-tag">Phase 1 — Complete</span>
+        <span class="hero-tag">Phase 2 — Your Input</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 1: WHAT I LEARNED -->
+  <section class="page-section" id="business">
+    <div class="section-inner">
+      <p class="section-label reveal">Section 01 — What I Learned About Your Business</p>
+      <h2 class="reveal">Better Lives is bigger <em>than it looks online</em></h2>
+      <p class="subtitle reveal">Before looking at the website or the strategy, I wanted to understand the actual
+        business first. What I found is a company with a strong foundation that deserves a digital presence to match.
+      </p>
+
+      <div class="stat-grid reveal">
+        <div class="stat-card">
+          <p class="stat-num">12</p>
+          <p class="stat-label">Service Lines</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-num">10+</p>
+          <p class="stat-label">Maryland Counties</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-num">2</p>
+          <p class="stat-label">Revenue Streams</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-num">ACHC</p>
+          <p class="stat-label">Accredited</p>
+        </div>
+      </div>
+
+      <div class="detail-block reveal">
+        <h4>A Two-Sided Business</h4>
+        <p>Better Lives doesn't just serve families and individuals — it also places qualified healthcare professionals
+          into hospitals, nursing homes, and facilities. That makes it a two-sided marketplace. Most of the competitors
+          I studied only operate on one side. This is a significant structural advantage that the current website
+          doesn't communicate at all.</p>
+      </div>
+
+      <div class="detail-block reveal">
+        <h4>12 Service Lines</h4>
+        <p>Staffing Agency, Private Duty Nursing, Skilled Nursing, Home Health Services, Pediatric Care, Geriatric Care,
+          Companionship, Live-in Care, Personal Care, Alzheimer's/Dementia Care, Veteran Affairs Community Care, and
+          Therapy Services. This is a comprehensive offering — most competitors I studied offer between 3 and 6
+          services.</p>
+      </div>
+
+      <div class="detail-block reveal">
+        <h4>Verified Credentials</h4>
+        <ul>
+          <li>ACHC Accredited — independently evaluated against national quality standards. Most families don't know
+            what ACHC means, so we need to display it prominently with a clear explanation of what it means for them
+          </li>
+          <li>VA Community Care approved — eligible to serve veterans through the Department of Veterans Affairs. With
+            approximately 400,000 veterans in Maryland, this is an underutilised growth channel</li>
+          <li>Two registered NPI numbers — federally recognised as a legitimate healthcare provider</li>
+          <li>Tiffany Oyekan serves as Nurse Manager, providing clinical oversight and credibility</li>
+        </ul>
+      </div>
+
+      <div class="detail-block reveal">
+        <h4>Coverage Area</h4>
+        <p>Prince George's, Anne Arundel, Howard, Montgomery, Baltimore, Frederick, Carroll, Calvert, Cecil (partial),
+          Baltimore City, and parts of the Eastern Shore. This is one of the widest coverage footprints among the
+          agencies I studied — and every single county represents a digital marketing opportunity we're currently not
+          capturing.</p>
+      </div>
+
+      <div class="pull-quote reveal">"The business has the substance. What it needs is a system that makes the substance
+        visible."</div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: COMPETITORS -->
+  <section class="page-section" id="competitors" style="background: var(--bg-2);">
+    <div class="section-inner">
+      <p class="section-label reveal">Section 02 — What Your Competitors Are Doing</p>
+      <h2 class="reveal">Three agencies I studied. <em>Three lessons.</em></h2>
+      <p class="subtitle reveal">I investigated the top three competitors in and around Howard County. Each one does
+        something well digitally that Better Lives can learn from — and each has a clear weakness that creates an
+        opening for us.</p>
+
+      <div class="comp-card reveal">
+        <div class="comp-header">
+          <span class="comp-name">SYNERGY HomeCare</span>
+          <span class="comp-type">Same Zip Code — Ellicott City</span>
+        </div>
+        <p class="comp-body">SYNERGY has individual web pages for every city they serve — Catonsville, Elkridge,
+          Pikesville, Randalstown, Woodstock. When someone in Catonsville searches "home care near me," SYNERGY has a
+          dedicated page waiting for them. They also feature their owner (Doctor of Physical Therapy) and a nurse
+          practitioner by name with credentials on the About page. They have 4.9 stars on Google with around 35 reviews,
+          a blog publishing monthly, and a live chat widget for instant responses.</p>
+        <div class="comp-opportunity">
+          <strong>Our Opportunity</strong>
+          Better Lives covers more counties than SYNERGY but has zero location-specific pages. We can build dedicated
+          pages for every county and city we serve — capturing the search traffic SYNERGY and others are currently
+          winning.
+        </div>
+      </div>
+
+      <div class="comp-card reveal">
+        <div class="comp-header">
+          <span class="comp-name">Maryland Health Care Staffing</span>
+          <span class="comp-type">Content Marketing Leader</span>
+        </div>
+        <p class="comp-body">MHS has 15+ blog posts targeting healthcare staffing keywords and individual service pages
+          for each professional role — RN, LPN, CNA, CMT, OT. Their careers page lists specific job roles with benefits
+          clearly stated: direct deposit, competitive pay, flexible hours, 24/7 support. They post regularly on Facebook
+          and Instagram using video content.</p>
+        <div class="comp-opportunity">
+          <strong>Our Opportunity</strong>
+          Their entire blog has been inactive since 2023 — three years without new content. If we launch a consistent
+          content engine, we overtake their full library within months. Their role-specific service pages are smart — we
+          should build the same for the staffing side of the business.
+        </div>
+      </div>
+
+      <div class="comp-card reveal">
+        <div class="comp-header">
+          <span class="comp-name">Capital City Nurses</span>
+          <span class="comp-type">Multi-State — MD / VA / DC</span>
+        </div>
+        <p class="comp-body">Capital City Nurses is part of a larger parent company (Care Advantage). Their service
+          pages run over 1,100 words each with detailed process explanations. They've branded their intake system as
+          "Care360" — a structured assessment tool. Five named leaders with photos and bios on the About page. Industry
+          award badges displayed prominently. Proper technical SEO implemented throughout.</p>
+        <div class="comp-opportunity">
+          <strong>Our Opportunity</strong>
+          Their blog link is completely broken and returns an error page. They have no interactive tools online despite
+          advertising them. If we build a functioning content hub and a real care needs assessment, we offer experiences
+          none of these competitors currently deliver.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: QUESTIONS -->
+  <section class="page-section" id="questions">
+    <div class="section-inner">
+      <p class="section-label reveal">Section 03 — What I Need From You</p>
+      <h2 class="reveal">The answers that <em>shape the strategy</em></h2>
+      <p class="q-section-intro reveal">Everything above was built from what I could learn externally — the website,
+        public records, and competitor research. The questions below are what I need from you to finalize the full plan.
+        I've grouped them so we can move through them in conversation. Click any group to expand it.</p>
+
+      <!-- GROUP 01 -->
+      <div class="q-group reveal open">
+        <div class="q-group-header" onclick="toggleGroup(this)">
+          <div class="q-group-header-left">
+            <div class="q-group-num q-num-blue">01</div>
+            <div>
+              <p class="q-group-title">Business Operations</p>
+              <p class="q-group-sub">The current numbers and structure</p>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="q-group-count">8 questions</span>
+            <span class="q-chevron">▾</span>
+          </div>
+        </div>
+        <div class="q-body">
+          <div class="q-item">How long has Better Lives been operating?</div>
+          <div class="q-item">What is the approximate monthly revenue currently?</div>
+          <div class="q-item">How many active healthcare workers are on the roster right now?</div>
+          <div class="q-item">How many facility clients does Better Lives serve regularly?</div>
+          <div class="q-item">How many individual and family clients are currently active?</div>
+          <div class="q-item">What does a typical contract look like — per shift, weekly, monthly, or per placement?
+          </div>
+          <div class="q-item">What exactly is Tiffany's role in the day-to-day operations?</div>
+          <div class="q-item">Who else is part of the core team — administration, scheduling, management?</div>
+        </div>
+      </div>
+
+      <!-- GROUP 02 -->
+      <div class="q-group reveal">
+        <div class="q-group-header" onclick="toggleGroup(this)">
+          <div class="q-group-header-left">
+            <div class="q-group-num q-num-blue">02</div>
+            <div>
+              <p class="q-group-title">Client Pipeline</p>
+              <p class="q-group-sub">How clients currently find and choose Better Lives</p>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="q-group-count">6 questions</span>
+            <span class="q-chevron">▾</span>
+          </div>
+        </div>
+        <div class="q-body">
+          <div class="q-item">How do new clients (families) currently find Better Lives — word of mouth, phone calls,
+            website, referrals?</div>
+          <div class="q-item">How do new facility clients currently find you?</div>
+          <div class="q-item">What is the biggest reason a potential client doesn't move forward?</div>
+          <div class="q-item">Does Better Lives accept Medicare, Medicaid, private insurance, or private pay only?</div>
+          <div class="q-item">What percentage of revenue comes through VA Community Care contracts?</div>
+          <div class="q-item">Roughly how many enquiries per week or month does the business receive?</div>
+        </div>
+      </div>
+
+      <!-- GROUP 03 -->
+      <div class="q-group reveal">
+        <div class="q-group-header" onclick="toggleGroup(this)">
+          <div class="q-group-header-left">
+            <div class="q-group-num q-num-green">03</div>
+            <div>
+              <p class="q-group-title">Staff Pipeline</p>
+              <p class="q-group-sub">How healthcare workers are recruited and retained</p>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="q-group-count">6 questions</span>
+            <span class="q-chevron">▾</span>
+          </div>
+        </div>
+        <div class="q-body">
+          <div class="q-item">How do you currently recruit healthcare workers — job boards, word of mouth, agencies?
+          </div>
+          <div class="q-item">Which positions are hardest to fill right now?</div>
+          <div class="q-item">What makes workers choose Better Lives over other agencies?</div>
+          <div class="q-item">What benefits does Better Lives offer workers — pay rates, flexibility, support, training?
+          </div>
+          <div class="q-item">What is the average time from application to first placement?</div>
+          <div class="q-item">What causes workers to leave?</div>
+        </div>
+      </div>
+
+      <!-- GROUP 04 -->
+      <div class="q-group reveal">
+        <div class="q-group-header" onclick="toggleGroup(this)">
+          <div class="q-group-header-left">
+            <div class="q-group-num q-num-green">04</div>
+            <div>
+              <p class="q-group-title">Operations & Process</p>
+              <p class="q-group-sub">The journey from first contact to care delivery</p>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="q-group-count">4 questions</span>
+            <span class="q-chevron">▾</span>
+          </div>
+        </div>
+        <div class="q-body">
+          <div class="q-item">Walk me through what happens from the moment someone calls to a caregiver arriving at
+            their home</div>
+          <div class="q-item">Who currently answers the 24/7 phone line after hours?</div>
+          <div class="q-item">What is the biggest operational bottleneck right now — not enough workers, not enough
+            clients, or not enough capacity to manage what you have?</div>
+          <div class="q-item">What systems are currently used for scheduling, billing, and communication?</div>
+        </div>
+      </div>
+
+      <!-- GROUP 05 -->
+      <div class="q-group reveal">
+        <div class="q-group-header" onclick="toggleGroup(this)">
+          <div class="q-group-header-left">
+            <div class="q-group-num q-num-purple">05</div>
+            <div>
+              <p class="q-group-title">Trust & Brand</p>
+              <p class="q-group-sub">The credibility signals we can put to work</p>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="q-group-count">8 questions</span>
+            <span class="q-chevron">▾</span>
+          </div>
+        </div>
+        <div class="q-body">
+          <div class="q-item">Do you have any accreditations or certifications beyond ACHC?</div>
+          <div class="q-item">Has Better Lives received any awards or recognitions?</div>
+          <div class="q-item">Are you registered with the Better Business Bureau (BBB)?</div>
+          <div class="q-item">Would you be comfortable featuring your photo and personal story on the new website?</div>
+          <div class="q-item">Would Tiffany and other team members be willing to be featured with photos and
+            credentials?</div>
+          <div class="q-item">Do you have professional photos of your caregivers in action, or would you be open to
+            arranging a photo session?</div>
+          <div class="q-item">How many Google reviews does Better Lives currently have, and what is the average rating?
+          </div>
+          <div class="q-item">Would you be comfortable asking satisfied clients and families for written testimonials?
+          </div>
+        </div>
+      </div>
+
+      <!-- GROUP 06 -->
+      <div class="q-group reveal">
+        <div class="q-group-header" onclick="toggleGroup(this)">
+          <div class="q-group-header-left">
+            <div class="q-group-num q-num-purple">06</div>
+            <div>
+              <p class="q-group-title">Conversion & Intake</p>
+              <p class="q-group-sub">Making it easier for people to reach you and get started</p>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="q-group-count">5 questions</span>
+            <span class="q-chevron">▾</span>
+          </div>
+        </div>
+        <div class="q-body">
+          <div class="q-item">When a family calls for the first time, what information do you need to determine if you
+            can help them?</div>
+          <div class="q-item">When a facility calls needing staff, what do they typically ask first?</div>
+          <div class="q-item">How quickly does someone currently respond to enquiries that come through the website?
+          </div>
+          <div class="q-item">Would you be open to the website giving families and facilities separate, tailored entry
+            points and journeys?</div>
+          <div class="q-item">Would you be open to an AI-powered receptionist handling initial enquiries after office
+            hours, so no lead is ever lost to a voicemail?</div>
+          <div class="q-note">This is one of the Marblism AI team members — she can provide a warm, professional first
+            response to families calling at 10pm, then route the enquiry to you in the morning.</div>
+        </div>
+      </div>
+
+      <!-- GROUP 07 -->
+      <div class="q-group reveal">
+        <div class="q-group-header" onclick="toggleGroup(this)">
+          <div class="q-group-header-left">
+            <div class="q-group-num q-num-warm">07</div>
+            <div>
+              <p class="q-group-title">SEO & Content</p>
+              <p class="q-group-sub">Building the engine that brings people to the website</p>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="q-group-count">6 questions</span>
+            <span class="q-chevron">▾</span>
+          </div>
+        </div>
+        <div class="q-body">
+          <div class="q-item">Which counties currently generate the most business for Better Lives?</div>
+          <div class="q-item">Which counties would you most like to grow into?</div>
+          <div class="q-item">Are there specific services that are more profitable or in higher demand than others?
+          </div>
+          <div class="q-item">Do families or clients ever ask the same questions repeatedly? Those questions become our
+            FAQ and blog content.</div>
+          <div class="q-item">Would you be willing to contribute to or approve blog content about home care topics,
+            caregiver advice, and healthcare insights?</div>
+          <div class="q-item">Has Better Lives ever been featured in any news articles, publications, or community
+            events?</div>
+        </div>
+      </div>
+
+      <!-- GROUP 08 -->
+      <div class="q-group reveal">
+        <div class="q-group-header" onclick="toggleGroup(this)">
+          <div class="q-group-header-left">
+            <div class="q-group-num q-num-warm">08</div>
+            <div>
+              <p class="q-group-title">Recruitment & Careers</p>
+              <p class="q-group-sub">Attracting the best healthcare workers in Maryland</p>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="q-group-count">5 questions</span>
+            <span class="q-chevron">▾</span>
+          </div>
+        </div>
+        <div class="q-body">
+          <div class="q-item">Do you currently post jobs on Indeed, LinkedIn, or other job boards?</div>
+          <div class="q-item">Are you competitive on pay rates compared to other agencies in Maryland?</div>
+          <div class="q-item">Would current staff be willing to share short testimonials about their experience working
+            at Better Lives?</div>
+          <div class="q-item">What certifications and licences do you require for each role type — HHA, CNA, LPN, RN?
+          </div>
+          <div class="q-item">Is there anything unique about working at Better Lives that other agencies don't offer?
+          </div>
+        </div>
+      </div>
+
+      <!-- GROUP 09 -->
+      <div class="q-group reveal">
+        <div class="q-group-header" onclick="toggleGroup(this)">
+          <div class="q-group-header-left">
+            <div class="q-group-num q-num-blue">09</div>
+            <div>
+              <p class="q-group-title">Marketing & Technology</p>
+              <p class="q-group-sub">Current tools and digital presence</p>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="q-group-count">5 questions</span>
+            <span class="q-chevron">▾</span>
+          </div>
+        </div>
+        <div class="q-body">
+          <div class="q-item">Has Better Lives ever run digital advertising — Google Ads, Facebook Ads, or similar?
+          </div>
+          <div class="q-item">Is Google Analytics installed on the current website?</div>
+          <div class="q-item">Do you have access to the WordPress admin dashboard for the current site?</div>
+          <div class="q-item">Are any of the Marblism AI team members currently active, or is the subscription unused so
+            far?</div>
+          <div class="q-item">Do you currently have an active Facebook Business page or any other social media accounts?
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 4: PATH FORWARD -->
+  <section class="page-section" id="path" style="background: var(--bg-2);">
+    <div class="section-inner">
+      <p class="section-label reveal">Section 04 — What Comes Next</p>
+      <h2 class="reveal">From research <em>to results</em></h2>
+      <p class="subtitle reveal">Once I have your answers, I'll finalise the complete strategy — including the new
+        website architecture, the AI configuration, the content plan, and the specific metrics we'll track to measure
+        growth. I'll present it as an interactive proposal you can click through and experience before anything is
+        built.</p>
+
+      <div class="phase-flow">
+        <div class="phase-step done">
+          <p class="phase-num">Phase 1</p>
+          <p class="phase-title">Research</p>
+          <p class="phase-desc">Website audit, competitor analysis, and business model mapping.</p>
+          <span class="phase-status s-done">Complete</span>
+        </div>
+        <div class="phase-step next">
+          <p class="phase-num">Phase 2</p>
+          <p class="phase-title">Your Input</p>
+          <p class="phase-desc">Your answers to these questions. A conversation to fill the gaps.</p>
+          <span class="phase-status s-next">Next</span>
+        </div>
+        <div class="phase-step">
+          <p class="phase-num">Phase 3</p>
+          <p class="phase-title">Strategy</p>
+          <p class="phase-desc">Full system design with AI integration, SEO plan, and metrics.</p>
+          <span class="phase-status s-pending">Pending</span>
+        </div>
+        <div class="phase-step">
+          <p class="phase-num">Phase 4</p>
+          <p class="phase-title">Proposal</p>
+          <p class="phase-desc">Interactive proposal website — experience the strategy before it's built.</p>
+          <span class="phase-status s-pending">Pending</span>
+        </div>
+        <div class="phase-step">
+          <p class="phase-num">Phase 5</p>
+          <p class="phase-title">Build</p>
+          <p class="phase-desc">Execute the strategy. Deploy, track, and optimise for results.</p>
+          <span class="phase-status s-pending">Pending</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <div class="closing-block reveal">
+    <!-- <blockquote>"The brief came first. The research came second. The structure came third. The build comes last."</blockquote> -->
+    <cite>Newman Adesan — Better Lives Strategic Plan, 2026</cite>
+  </div>
+
+  <footer>
+    Better Lives, Inc. — Strategic Growth Plan &nbsp;·&nbsp; Prepared by Newman Adesan &nbsp;·&nbsp; 2026
+  </footer>
+
+  <script>
+    // Progress bar
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      document.getElementById('progress-bar').style.width = (scrolled / total * 100) + '%';
+    });
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => revealObs.observe(el));
+
+    // Phase steps
+    const steps = document.querySelectorAll('.phase-step');
+    const stepObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const idx = [...steps].indexOf(e.target);
+          setTimeout(() => e.target.classList.add('visible'), idx * 100);
+        }
+      });
+    }, { threshold: 0.1 });
+    steps.forEach(s => stepObs.observe(s));
+
+    // Accordion toggle
+    function toggleGroup(header) {
+      const group = header.closest('.q-group');
+      const isOpen = group.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.q-group').forEach(g => g.classList.remove('open'));
+      // Open this one if it was closed
+      if (!isOpen) group.classList.add('open');
+    }
+  </script>
+</body>
+
+</html>
