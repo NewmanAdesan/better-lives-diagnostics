@@ -24,6 +24,8 @@
       --bg-2: #F2EDE6;
       --surface: #FFFFFF;
       --surface-2: #F5F1EC;
+      --dark: #141210;
+      --dark-2: #1E1A17;
       --border: rgba(30, 24, 16, 0.10);
       --border-strong: rgba(30, 24, 16, 0.18);
       --text: #1A1410;
@@ -36,6 +38,10 @@
       --success: #1A7A5E;
       --success-dim: rgba(26, 122, 94, 0.07);
       --success-border: rgba(26, 122, 94, 0.22);
+      --success-light: #F0FAF6;
+      --danger: #9B2C2C;
+      --danger-dim: rgba(155, 44, 44, 0.055);
+      --danger-border: rgba(155, 44, 44, 0.18);
       --warm: #B45309;
       --warm-dim: rgba(180, 83, 9, 0.07);
       --warm-border: rgba(180, 83, 9, 0.20);
@@ -45,7 +51,7 @@
       --font-display: 'Playfair Display', Georgia, serif;
       --font-body: 'DM Sans', sans-serif;
       --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.09), 0 2px 4px rgba(0, 0, 0, 0.04);
     }
 
     html {
@@ -84,8 +90,8 @@
       justify-content: space-between;
       padding: 0 40px;
       height: 60px;
-      background: rgba(249, 246, 241, 0.92);
-      backdrop-filter: blur(12px);
+      background: rgba(249, 246, 241, 0.93);
+      backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
     }
 
@@ -99,7 +105,7 @@
 
     .nav-links {
       display: flex;
-      gap: 28px;
+      gap: 26px;
       list-style: none;
     }
 
@@ -117,14 +123,118 @@
       color: var(--text);
     }
 
+    /* ─── MOBILE NAV ─── */
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+      position: relative;
+      width: 32px;
+      height: 32px;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 18px;
+      height: 1.5px;
+      background: var(--text);
+      position: absolute;
+      left: 7px;
+      transition: all 0.25s ease;
+    }
+
+    .nav-hamburger span:nth-child(1) {
+      top: 10px;
+    }
+
+    .nav-hamburger span:nth-child(2) {
+      top: 15px;
+    }
+
+    .nav-hamburger span:nth-child(3) {
+      top: 20px;
+    }
+
+    .nav-hamburger.open span:nth-child(1) {
+      top: 15px;
+      transform: rotate(45deg);
+    }
+
+    .nav-hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .nav-hamburger.open span:nth-child(3) {
+      top: 15px;
+      transform: rotate(-45deg);
+    }
+
+    .mobile-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 90;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .mobile-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 260px;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      z-index: 95;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      padding: 80px 28px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .mobile-panel.open {
+      transform: translateX(0);
+    }
+
+    .mobile-panel a {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-2);
+      text-decoration: none;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+
+    .mobile-panel a:hover {
+      color: var(--accent);
+    }
+
+    .mobile-panel-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
     /* ─── LAYOUT ─── */
     .page-section {
       padding: 100px 40px 80px;
       border-bottom: 1px solid var(--border);
-    }
-
-    .page-section:last-of-type {
-      border-bottom: none;
     }
 
     .section-inner {
@@ -310,7 +420,7 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 3px;
-      margin-bottom: 36px;
+      margin-bottom: 32px;
     }
 
     .stat-card {
@@ -337,12 +447,182 @@
       color: var(--muted);
     }
 
-    /* ─── DETAIL BLOCKS ─── */
+    /* ─── TWO-SIDED BUSINESS ─── */
+    .two-sided-wrapper {
+      border: 1px solid var(--border-strong);
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 12px;
+    }
+
+    .two-sided-header {
+      background: var(--dark);
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .two-sided-header-left {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .two-sided-eyebrow {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.38);
+    }
+
+    .two-sided-title {
+      font-family: var(--font-display);
+      font-size: 21px;
+      font-weight: 500;
+      color: #FFFFFF;
+      line-height: 1.2;
+    }
+
+    .two-sided-title em {
+      font-style: italic;
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .two-sided-badge {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #34D399;
+      background: rgba(52, 211, 153, 0.12);
+      border: 1px solid rgba(52, 211, 153, 0.28);
+      padding: 5px 12px;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+
+    .two-sided-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .two-sided-card {
+      background: var(--surface);
+      padding: 24px 26px;
+    }
+
+    .two-sided-card-families {
+      border-top: 3px solid var(--accent);
+    }
+
+    .two-sided-card-facilities {
+      border-top: 3px solid var(--success);
+    }
+
+    .two-sided-card-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .two-sided-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .icon-families {
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+    }
+
+    .icon-facilities {
+      background: var(--success-dim);
+      border: 1px solid var(--success-border);
+    }
+
+    .two-sided-card-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .label-families {
+      color: var(--accent);
+    }
+
+    .label-facilities {
+      color: var(--success);
+    }
+
+    .two-sided-card-sublabel {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--muted);
+    }
+
+    .two-sided-card h4 {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .two-sided-card p {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .two-sided-insight {
+      background: var(--dark-2);
+      padding: 16px 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .insight-arrow {
+      color: rgba(255, 255, 255, 0.35);
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .insight-text {
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.6;
+    }
+
+    .insight-text strong {
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+
+    /* ─── DETAIL BLOCK ─── */
     .detail-block {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 4px;
-      padding: 26px 28px;
+      padding: 24px 26px;
       margin-bottom: 12px;
       box-shadow: var(--shadow-sm);
     }
@@ -352,7 +632,7 @@
       font-size: 18px;
       font-weight: 500;
       color: var(--text);
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .detail-block p {
@@ -362,32 +642,74 @@
       line-height: 1.75;
     }
 
-    .detail-block ul {
-      list-style: none;
-      padding: 0;
-      margin-top: 6px;
+    /* ─── CREDENTIAL BADGES (Fix 04) ─── */
+    .credential-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
     }
 
-    .detail-block li {
-      font-size: 15px;
-      font-weight: 400;
-      color: var(--text-2);
-      line-height: 1.7;
-      padding: 6px 0 6px 20px;
-      position: relative;
-      border-bottom: 1px solid var(--border);
+    .credential-badge {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
     }
 
-    .detail-block li:last-child {
-      border-bottom: none;
+    .credential-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 4px;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
     }
 
-    .detail-block li::before {
-      content: '→';
-      position: absolute;
-      left: 0;
+    .credential-badge-title {
+      font-size: 12px;
+      font-weight: 600;
       color: var(--accent);
+      letter-spacing: 0.04em;
+      margin-bottom: 2px;
+    }
+
+    .credential-badge-desc {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* ─── SERVICE & COUNTY TAGS ─── */
+    .service-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .service-tag {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-2);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      padding: 5px 12px;
+      border-radius: 3px;
+    }
+
+    .service-count-note {
       font-size: 13px;
+      font-weight: 400;
+      color: var(--muted);
+      margin-top: 12px;
+      font-style: italic;
     }
 
     /* ─── PULL QUOTE ─── */
@@ -410,10 +732,11 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 4px;
-      padding: 26px 28px;
+      padding: 26px 26px 0;
       margin-bottom: 14px;
       box-shadow: var(--shadow-sm);
       transition: border-color 0.25s, box-shadow 0.25s;
+      overflow: hidden;
     }
 
     .comp-card:hover {
@@ -425,7 +748,9 @@
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
       flex-wrap: wrap;
       gap: 6px;
     }
@@ -449,32 +774,215 @@
       border-radius: 2px;
     }
 
-    .comp-body {
-      font-size: 15px;
+    .comp-finding {
+      display: flex;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: baseline;
+    }
+
+    .comp-finding-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      min-width: 110px;
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+
+    .comp-finding-text {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-2);
+      line-height: 1.65;
+    }
+
+    /* ─── OPPORTUNITY BLOCK (Fix 02) ─── */
+    .comp-opportunity {
+      margin: 16px 0 0;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .opp-header-label {
+      padding: 9px 16px;
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .opp-row {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .opp-row:last-child {
+      border-bottom: none;
+    }
+
+    .opp-row-label {
+      padding: 13px 14px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-right: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      padding-top: 15px;
+      line-height: 1.3;
+    }
+
+    .opp-row-label.gap {
+      color: var(--danger);
+      background: var(--danger-dim);
+    }
+
+    .opp-row-label.move {
+      color: var(--success);
+      background: var(--success-dim);
+    }
+
+    .opp-row-text {
+      padding: 13px 16px;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-2);
+      line-height: 1.65;
+    }
+
+    .opp-row.gap-row {
+      background: rgba(155, 44, 44, 0.018);
+    }
+
+    .opp-row.move-row {
+      background: rgba(26, 122, 94, 0.018);
+    }
+
+    .comp-opp-wrap {
+      padding: 0 0 20px;
+    }
+
+    /* ─── FRAMEWORK (Section 03 — The Plan) ─── */
+    .framework-intro {
+      font-size: 16px;
       font-weight: 400;
       color: var(--text-2);
       line-height: 1.75;
-      margin-bottom: 14px;
+      max-width: 620px;
+      margin-bottom: 32px;
     }
 
-    .comp-opportunity {
-      font-size: 13px;
+    .framework-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3px;
+    }
+
+    .framework-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 4px 4px 0;
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .framework-body {
+      padding: 20px 22px 16px;
+    }
+
+    .framework-top {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .framework-num {
+      font-family: var(--font-display);
+      font-size: 20px;
       font-weight: 500;
-      color: var(--success);
-      background: var(--success-dim);
-      border: 1px solid var(--success-border);
-      border-radius: 3px;
-      padding: 10px 14px;
-      line-height: 1.6;
+      color: var(--accent);
+      line-height: 1;
+      flex-shrink: 0;
     }
 
-    .comp-opportunity strong {
-      font-weight: 600;
-      display: block;
-      margin-bottom: 2px;
-      font-size: 10px;
+    /* Fix 03 — correct selector */
+    .framework-top h4 {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .framework-bullets {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .framework-bullets li {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-2);
+      line-height: 1.6;
+      padding: 5px 0 5px 18px;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .framework-bullets li:last-child {
+      border-bottom: none;
+    }
+
+    .framework-bullets li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 12px;
+    }
+
+    /* ─── FRAMEWORK DARK FOOTER STRIP ─── */
+    .framework-footer {
+      background: var(--dark);
+      padding: 10px 22px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .agent-chip {
+      font-size: 9px;
+      font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+
+    .agent-chip-ai {
+      color: #93C5FD;
+      background: rgba(147, 197, 253, 0.1);
+      border: 1px solid rgba(147, 197, 253, 0.22);
+    }
+
+    .agent-chip-web {
+      color: rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
     }
 
     /* ─── QUESTION GROUPS ─── */
@@ -488,7 +996,7 @@
     }
 
     .q-group {
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 4px;
@@ -500,7 +1008,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 20px;
+      padding: 15px 20px;
       cursor: pointer;
       user-select: none;
       transition: background 0.2s;
@@ -591,12 +1099,13 @@
     .q-body {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.35s ease;
+      transition: max-height 0.4s ease;
       border-top: 0px solid var(--border);
     }
 
+    /* Fix 02 — accordion max-height */
     .q-group.open .q-body {
-      max-height: 800px;
+      max-height: 1200px;
       border-top-width: 1px;
     }
 
@@ -604,7 +1113,7 @@
       font-size: 15px;
       font-weight: 400;
       color: var(--text-2);
-      padding: 13px 20px 13px 54px;
+      padding: 13px 20px 13px 52px;
       border-bottom: 1px solid var(--border);
       line-height: 1.6;
       position: relative;
@@ -629,8 +1138,7 @@
       font-style: italic;
       color: var(--accent);
       background: var(--accent-dim);
-      padding: 10px 20px 10px 54px;
-      border-bottom: 1px solid var(--accent-border);
+      padding: 10px 20px 10px 52px;
       line-height: 1.6;
       position: relative;
     }
@@ -657,7 +1165,7 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 3px;
-      padding: 22px 18px;
+      padding: 20px 18px;
       opacity: 0;
       transform: translateY(10px);
       transition: opacity 0.5s ease, transform 0.5s ease;
@@ -739,7 +1247,7 @@
       border: 1px solid var(--border);
     }
 
-    /* ─── CLOSING QUOTE ─── */
+    /* ─── CLOSING ─── */
     .closing-block {
       text-align: center;
       padding: 60px 40px 80px;
@@ -788,6 +1296,10 @@
         display: none;
       }
 
+      .nav-hamburger {
+        display: block;
+      }
+
       .page-section {
         padding: 80px 20px 60px;
       }
@@ -800,12 +1312,33 @@
         grid-template-columns: 1fr 1fr;
       }
 
+      .two-sided-split {
+        grid-template-columns: 1fr;
+      }
+
+      .credential-grid {
+        grid-template-columns: 1fr;
+      }
+
       .phase-flow {
         grid-template-columns: 1fr;
       }
 
       .comp-header {
         flex-direction: column;
+      }
+
+      .comp-finding {
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .comp-finding-label {
+        min-width: auto;
+      }
+
+      .opp-row {
+        grid-template-columns: 80px 1fr;
       }
     }
   </style>
@@ -820,18 +1353,32 @@
     <ul class="nav-links">
       <li><a href="#business">Research</a></li>
       <li><a href="#competitors">Competitors</a></li>
+      <li><a href="#plan">The Plan</a></li>
       <li><a href="#questions">Questions</a></li>
       <li><a href="#path">Path Forward</a></li>
     </ul>
+    <button class="nav-hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
-  <!-- HERO -->
+  <div class="mobile-overlay" onclick="toggleMobileNav()"></div>
+  <div class="mobile-panel">
+    <p class="mobile-panel-label">Navigate</p>
+    <a href="#business" onclick="toggleMobileNav()">Research</a>
+    <a href="#competitors" onclick="toggleMobileNav()">Competitors</a>
+    <a href="#plan" onclick="toggleMobileNav()">The Plan</a>
+    <a href="#questions" onclick="toggleMobileNav()">Questions</a>
+    <a href="#path" onclick="toggleMobileNav()">Path Forward</a>
+  </div>
+
+  <!-- ══════════════════════ HERO ══════════════════════ -->
   <section id="hero">
     <div class="hero-inner">
       <p class="hero-eyebrow">Strategic Growth Plan · Healthcare · Maryland</p>
       <h1>Building the digital engine behind <em>Better Lives</em></h1>
       <p class="hero-subline">I've spent the past week studying your business, your website, and your competitors in the
-        Maryland healthcare staffing market. This document shares what I found — and what I need from you to finalize
+        Maryland healthcare staffing market. This document shares what I found — and what I need from you to finalise
         the strategy.</p>
       <div class="hero-meta">
         <span class="hero-from">Prepared by <strong>Newman Adesan</strong></span>
@@ -842,7 +1389,7 @@
     </div>
   </section>
 
-  <!-- SECTION 1: WHAT I LEARNED -->
+  <!-- ══════════════════════ SECTION 01 — RESEARCH ══════════════════════ -->
   <section class="page-section" id="business">
     <div class="section-inner">
       <p class="section-label reveal">Section 01 — What I Learned About Your Business</p>
@@ -870,41 +1417,157 @@
         </div>
       </div>
 
-      <div class="detail-block reveal">
-        <h4>A Two-Sided Business</h4>
-        <p>Better Lives doesn't just serve families and individuals — it also places qualified healthcare professionals
-          into hospitals, nursing homes, and facilities. That makes it a two-sided marketplace. Most of the competitors
-          I studied only operate on one side. This is a significant structural advantage that the current website
-          doesn't communicate at all.</p>
+      <!-- TWO-SIDED BUSINESS — Fix 05 -->
+      <div class="two-sided-wrapper reveal">
+        <div class="two-sided-header">
+          <div class="two-sided-header-left">
+            <p class="two-sided-eyebrow">Business Model</p>
+            <p class="two-sided-title">A <em>two-sided</em> marketplace</p>
+          </div>
+          <span class="two-sided-badge">Structural Advantage</span>
+        </div>
+
+        <div class="two-sided-split">
+          <div class="two-sided-card two-sided-card-families">
+            <div class="two-sided-card-top">
+              <div class="two-sided-icon icon-families">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1D6FA4" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                  <polyline points="9 22 9 12 15 12 15 22" />
+                </svg>
+              </div>
+              <div>
+                <p class="two-sided-card-label label-families">Side 1 — Families</p>
+                <p class="two-sided-card-sublabel">Direct care services</p>
+              </div>
+            </div>
+            <h4>Care delivered to people in their homes</h4>
+            <p>Skilled nursing, home health, personal care, dementia care, pediatric and geriatric care, VA community
+              care, and more — across Maryland.</p>
+          </div>
+
+          <div class="two-sided-card two-sided-card-facilities">
+            <div class="two-sided-card-top">
+              <div class="two-sided-icon icon-facilities">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1A7A5E" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <path d="M12 8v8M8 12h8" />
+                </svg>
+              </div>
+              <div>
+                <p class="two-sided-card-label label-facilities">Side 2 — Facilities</p>
+                <p class="two-sided-card-sublabel">Healthcare staffing solutions</p>
+              </div>
+            </div>
+            <h4>Qualified staff placed into hospitals & care homes</h4>
+            <p>RNs, LPNs, CNAs, and HHAs placed into hospitals, nursing homes, and clinical facilities — per shift, per
+              week, or ongoing.</p>
+          </div>
+        </div>
+
+        <div class="two-sided-insight">
+          <span class="insight-arrow">→</span>
+          <p class="insight-text"><strong>Most competitors only operate on one side.</strong> Better Lives operates on
+            both — a structural advantage the current website doesn't communicate at all.</p>
+        </div>
       </div>
 
+      <!-- 12 SERVICE LINES -->
       <div class="detail-block reveal">
         <h4>12 Service Lines</h4>
-        <p>Staffing Agency, Private Duty Nursing, Skilled Nursing, Home Health Services, Pediatric Care, Geriatric Care,
-          Companionship, Live-in Care, Personal Care, Alzheimer's/Dementia Care, Veteran Affairs Community Care, and
-          Therapy Services. This is a comprehensive offering — most competitors I studied offer between 3 and 6
-          services.</p>
+        <div class="service-tags">
+          <span class="service-tag">Staffing Agency</span>
+          <span class="service-tag">Private Duty Nursing</span>
+          <span class="service-tag">Skilled Nursing</span>
+          <span class="service-tag">Home Health</span>
+          <span class="service-tag">Pediatric Care</span>
+          <span class="service-tag">Geriatric Care</span>
+          <span class="service-tag">Companionship</span>
+          <span class="service-tag">Live-in Care</span>
+          <span class="service-tag">Personal Care</span>
+          <span class="service-tag">Alzheimer's / Dementia Care</span>
+          <span class="service-tag">VA Community Care</span>
+          <span class="service-tag">Therapy Services</span>
+        </div>
+        <p class="service-count-note">Most competitors I studied offer between 3 and 6 services.</p>
       </div>
 
+      <!-- VERIFIED CREDENTIALS — Fix 04 -->
       <div class="detail-block reveal">
         <h4>Verified Credentials</h4>
-        <ul>
-          <li>ACHC Accredited — independently evaluated against national quality standards. Most families don't know
-            what ACHC means, so we need to display it prominently with a clear explanation of what it means for them
-          </li>
-          <li>VA Community Care approved — eligible to serve veterans through the Department of Veterans Affairs. With
-            approximately 400,000 veterans in Maryland, this is an underutilised growth channel</li>
-          <li>Two registered NPI numbers — federally recognised as a legitimate healthcare provider</li>
-          <li>Tiffany Oyekan serves as Nurse Manager, providing clinical oversight and credibility</li>
-        </ul>
+        <div class="credential-grid">
+          <div class="credential-badge">
+            <div class="credential-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1D6FA4" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <div>
+              <p class="credential-badge-title">ACHC Accredited</p>
+              <p class="credential-badge-desc">Independently evaluated against national quality standards — most
+                agencies aren't.</p>
+            </div>
+          </div>
+          <div class="credential-badge">
+            <div class="credential-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1D6FA4" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <div>
+              <p class="credential-badge-title">VA Community Care Approved</p>
+              <p class="credential-badge-desc">Eligible to serve ~400,000 Maryland veterans. An underutilised growth
+                channel.</p>
+            </div>
+          </div>
+          <div class="credential-badge">
+            <div class="credential-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1D6FA4" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <div>
+              <p class="credential-badge-title">Two Registered NPI Numbers</p>
+              <p class="credential-badge-desc">Federally recognised as a legitimate healthcare provider.</p>
+            </div>
+          </div>
+          <div class="credential-badge">
+            <div class="credential-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1D6FA4" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <div>
+              <p class="credential-badge-title">Tiffany Oyekan — Nurse Manager</p>
+              <p class="credential-badge-desc">Clinical leadership in place, providing oversight and credibility.</p>
+            </div>
+          </div>
+        </div>
       </div>
 
+      <!-- COVERAGE AREA -->
       <div class="detail-block reveal">
         <h4>Coverage Area</h4>
-        <p>Prince George's, Anne Arundel, Howard, Montgomery, Baltimore, Frederick, Carroll, Calvert, Cecil (partial),
-          Baltimore City, and parts of the Eastern Shore. This is one of the widest coverage footprints among the
-          agencies I studied — and every single county represents a digital marketing opportunity we're currently not
-          capturing.</p>
+        <div class="service-tags">
+          <span class="service-tag">Prince George's</span>
+          <span class="service-tag">Anne Arundel</span>
+          <span class="service-tag">Howard</span>
+          <span class="service-tag">Montgomery</span>
+          <span class="service-tag">Baltimore County</span>
+          <span class="service-tag">Baltimore City</span>
+          <span class="service-tag">Frederick</span>
+          <span class="service-tag">Carroll</span>
+          <span class="service-tag">Calvert</span>
+          <span class="service-tag">Cecil (partial)</span>
+          <span class="service-tag">Eastern Shore</span>
+        </div>
+        <p class="service-count-note">Every county is a digital marketing opportunity we're not yet capturing.</p>
       </div>
 
       <div class="pull-quote reveal">"The business has the substance. What it needs is a system that makes the substance
@@ -912,80 +1575,268 @@
     </div>
   </section>
 
-  <!-- SECTION 2: COMPETITORS -->
+  <!-- ══════════════════════ SECTION 02 — COMPETITORS ══════════════════════ -->
   <section class="page-section" id="competitors" style="background: var(--bg-2);">
     <div class="section-inner">
       <p class="section-label reveal">Section 02 — What Your Competitors Are Doing</p>
       <h2 class="reveal">Three agencies I studied. <em>Three lessons.</em></h2>
-      <p class="subtitle reveal">I investigated the top three competitors in and around Howard County. Each one does
-        something well digitally that Better Lives can learn from — and each has a clear weakness that creates an
-        opening for us.</p>
+      <p class="subtitle reveal">Each one does something well that Better Lives can learn from — and each has a clear
+        weakness that creates an opening for us.</p>
 
+      <!-- SYNERGY -->
       <div class="comp-card reveal">
         <div class="comp-header">
           <span class="comp-name">SYNERGY HomeCare</span>
           <span class="comp-type">Same Zip Code — Ellicott City</span>
         </div>
-        <p class="comp-body">SYNERGY has individual web pages for every city they serve — Catonsville, Elkridge,
-          Pikesville, Randalstown, Woodstock. When someone in Catonsville searches "home care near me," SYNERGY has a
-          dedicated page waiting for them. They also feature their owner (Doctor of Physical Therapy) and a nurse
-          practitioner by name with credentials on the About page. They have 4.9 stars on Google with around 35 reviews,
-          a blog publishing monthly, and a live chat widget for instant responses.</p>
-        <div class="comp-opportunity">
-          <strong>Our Opportunity</strong>
-          Better Lives covers more counties than SYNERGY but has zero location-specific pages. We can build dedicated
-          pages for every county and city we serve — capturing the search traffic SYNERGY and others are currently
-          winning.
+        <div class="comp-finding">
+          <span class="comp-finding-label">Local SEO</span>
+          <span class="comp-finding-text">Individual pages for every city they serve — Catonsville, Elkridge,
+            Pikesville, Randalstown, Woodstock. A dedicated page for every local search.</span>
+        </div>
+        <div class="comp-finding">
+          <span class="comp-finding-label">Leadership</span>
+          <span class="comp-finding-text">Owner (Doctor of Physical Therapy) and Geriatric Nurse Practitioner named with
+            credentials on the About page.</span>
+        </div>
+        <div class="comp-finding">
+          <span class="comp-finding-label">Google Reviews</span>
+          <span class="comp-finding-text">4.9 stars with ~35 reviews — the strongest local trust signal in healthcare
+            search.</span>
+        </div>
+        <div class="comp-finding">
+          <span class="comp-finding-label">Content</span>
+          <span class="comp-finding-text">"Knowledge Center" blog publishing monthly on caregiver topics — VA benefits,
+            fall prevention, hospital recovery.</span>
+        </div>
+        <div class="comp-opp-wrap">
+          <div class="comp-opportunity">
+            <div class="opp-header-label">Our Opportunity</div>
+            <div class="opp-row gap-row">
+              <div class="opp-row-label gap">Their Gap</div>
+              <div class="opp-row-text">Home care only — they cannot place staff into facilities. Their single-sided
+                model caps their growth ceiling.</div>
+            </div>
+            <div class="opp-row move-row">
+              <div class="opp-row-label move">Our Move</div>
+              <div class="opp-row-text">Build location pages for every county and city we serve, capturing their search
+                traffic — while also serving a facility audience they structurally cannot reach.</div>
+            </div>
+          </div>
         </div>
       </div>
 
+      <!-- MARYLAND HEALTH CARE STAFFING -->
       <div class="comp-card reveal">
         <div class="comp-header">
           <span class="comp-name">Maryland Health Care Staffing</span>
           <span class="comp-type">Content Marketing Leader</span>
         </div>
-        <p class="comp-body">MHS has 15+ blog posts targeting healthcare staffing keywords and individual service pages
-          for each professional role — RN, LPN, CNA, CMT, OT. Their careers page lists specific job roles with benefits
-          clearly stated: direct deposit, competitive pay, flexible hours, 24/7 support. They post regularly on Facebook
-          and Instagram using video content.</p>
-        <div class="comp-opportunity">
-          <strong>Our Opportunity</strong>
-          Their entire blog has been inactive since 2023 — three years without new content. If we launch a consistent
-          content engine, we overtake their full library within months. Their role-specific service pages are smart — we
-          should build the same for the staffing side of the business.
+        <div class="comp-finding">
+          <span class="comp-finding-label">Blog Library</span>
+          <span class="comp-finding-text">15+ posts targeting healthcare staffing keywords, with internal links to
+            role-specific service pages.</span>
+        </div>
+        <div class="comp-finding">
+          <span class="comp-finding-label">Role Pages</span>
+          <span class="comp-finding-text">Separate service pages for each professional role — RN, LPN, CNA, CMT, OT,
+            COTA. Targets the exact terms facilities use to search.</span>
+        </div>
+        <div class="comp-finding">
+          <span class="comp-finding-label">Recruitment</span>
+          <span class="comp-finding-text">Clear worker benefits displayed — direct deposit, competitive pay, flexible
+            hours, 24/7 support. Inline application with resume upload.</span>
+        </div>
+        <div class="comp-opp-wrap">
+          <div class="comp-opportunity">
+            <div class="opp-header-label">Our Opportunity</div>
+            <div class="opp-row gap-row">
+              <div class="opp-row-label gap">Their Gap</div>
+              <div class="opp-row-text">Blog completely inactive since March 2023 — three years stale. No city or
+                county-specific pages anywhere on the site.</div>
+            </div>
+            <div class="opp-row move-row">
+              <div class="opp-row-label move">Our Move</div>
+              <div class="opp-row-text">Launch a consistent content engine and geo-targeted county pages. We overtake
+                their entire digital strategy within months.</div>
+            </div>
+          </div>
         </div>
       </div>
 
+      <!-- CAPITAL CITY NURSES -->
       <div class="comp-card reveal">
         <div class="comp-header">
           <span class="comp-name">Capital City Nurses</span>
           <span class="comp-type">Multi-State — MD / VA / DC</span>
         </div>
-        <p class="comp-body">Capital City Nurses is part of a larger parent company (Care Advantage). Their service
-          pages run over 1,100 words each with detailed process explanations. They've branded their intake system as
-          "Care360" — a structured assessment tool. Five named leaders with photos and bios on the About page. Industry
-          award badges displayed prominently. Proper technical SEO implemented throughout.</p>
-        <div class="comp-opportunity">
-          <strong>Our Opportunity</strong>
-          Their blog link is completely broken and returns an error page. They have no interactive tools online despite
-          advertising them. If we build a functioning content hub and a real care needs assessment, we offer experiences
-          none of these competitors currently deliver.
+        <div class="comp-finding">
+          <span class="comp-finding-label">Content Depth</span>
+          <span class="comp-finding-text">Service pages run 1,100+ words each with detailed care explanations,
+            sub-services, and FAQ sections.</span>
         </div>
+        <div class="comp-finding">
+          <span class="comp-finding-label">Branded Process</span>
+          <span class="comp-finding-text">Proprietary "Care360" assessment and a four-step care journey visible on every
+            service page.</span>
+        </div>
+        <div class="comp-finding">
+          <span class="comp-finding-label">Leadership</span>
+          <span class="comp-finding-text">Five named leaders with photos, titles, and detailed bios — from Executive VP
+            of Operations to VP of Human Resources.</span>
+        </div>
+        <div class="comp-opp-wrap">
+          <div class="comp-opportunity">
+            <div class="opp-header-label">Our Opportunity</div>
+            <div class="opp-row gap-row">
+              <div class="opp-row-label gap">Their Gap</div>
+              <div class="opp-row-text">Blog link returns a 404 error. Care360 is described but not interactive online.
+                No pricing, no insurance information, no live engagement tools.</div>
+            </div>
+            <div class="opp-row move-row">
+              <div class="opp-row-label move">Our Move</div>
+              <div class="opp-row-text">Build a functioning content hub and a real interactive care assessment —
+                experiences none of these three competitors currently offer.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════ SECTION 03 — THE PLAN ══════════════════════ -->
+  <section class="page-section" id="plan">
+    <div class="section-inner">
+      <p class="section-label reveal">Section 03 — What We're Going To Build</p>
+      <h2 class="reveal">Five systems to close <em>every gap</em></h2>
+      <p class="framework-intro reveal">Each competitor taught us something specific. The plan I'm building takes the
+        best of what they do, fills the gaps none of them have addressed, and integrates AI where it creates the most
+        impact.</p>
+
+      <div class="framework-grid">
+
+        <!-- 1. TRUST ARCHITECTURE -->
+        <div class="framework-item reveal">
+          <div class="framework-body">
+            <div class="framework-top">
+              <span class="framework-num">1</span>
+              <h4>Trust Architecture</h4>
+            </div>
+            <ul class="framework-bullets">
+              <li>Founder story and personal profile on the About page</li>
+              <li>Tiffany Oyekan featured with credentials and clinical role</li>
+              <li>ACHC and VA approval displayed prominently with plain-language explanations</li>
+              <li>Team photos — caregivers, office staff, leadership</li>
+              <li>Google reviews strategy to build and display social proof</li>
+              <li>Client and family testimonials collected and featured</li>
+            </ul>
+          </div>
+          <div class="framework-footer">
+            <span class="agent-chip agent-chip-web">Website</span>
+          </div>
+        </div>
+
+        <!-- 2. SEO FOUNDATION -->
+        <div class="framework-item reveal">
+          <div class="framework-body">
+            <div class="framework-top">
+              <span class="framework-num">2</span>
+              <h4>SEO Foundation</h4>
+            </div>
+            <ul class="framework-bullets">
+              <li>Dedicated landing page for every county and city served</li>
+              <li>Role-specific pages for the staffing side — RN, LPN, CNA, HHA</li>
+              <li>Schema markup on every page for better search visibility</li>
+              <li>Optimised meta descriptions and clean URL structure</li>
+              <li>12 service pages with 1,000+ words of detailed content each</li>
+            </ul>
+          </div>
+          <div class="framework-footer">
+            <span class="agent-chip agent-chip-web">Website</span>
+            <span class="agent-chip agent-chip-ai">Penny</span>
+          </div>
+        </div>
+
+        <!-- 3. CONTENT ENGINE -->
+        <div class="framework-item reveal">
+          <div class="framework-body">
+            <div class="framework-top">
+              <span class="framework-num">3</span>
+              <h4>Content Engine</h4>
+            </div>
+            <ul class="framework-bullets">
+              <li>Blog targeting the questions families are already searching for</li>
+              <li>Topics — caregiver advice, insurance guidance, fall prevention, VA benefits</li>
+              <li>Every article links to a service page that links to a contact form</li>
+              <li>FAQ section answering the most common client questions</li>
+              <li>Content distributed across Facebook, Instagram, and LinkedIn</li>
+            </ul>
+          </div>
+          <div class="framework-footer">
+            <span class="agent-chip agent-chip-web">Website</span>
+            <span class="agent-chip agent-chip-ai">Penny</span>
+            <span class="agent-chip agent-chip-ai">Sonny</span>
+          </div>
+        </div>
+
+        <!-- 4. CONVERSION SYSTEM -->
+        <div class="framework-item reveal">
+          <div class="framework-body">
+            <div class="framework-top">
+              <span class="framework-num">4</span>
+              <h4>Conversion System</h4>
+            </div>
+            <ul class="framework-bullets">
+              <li>Separate "For Families" and "For Facilities" pathways from the homepage</li>
+              <li>Smart intake forms that categorise and route enquiries</li>
+              <li>Interactive care needs assessment tool on the website</li>
+              <li>AI-powered receptionist handling the 24/7 line after hours</li>
+              <li>Branded care process visible on every service page</li>
+            </ul>
+          </div>
+          <div class="framework-footer">
+            <span class="agent-chip agent-chip-web">Website</span>
+            <span class="agent-chip agent-chip-ai">Rachel</span>
+          </div>
+        </div>
+
+        <!-- 5. RECRUITMENT PIPELINE -->
+        <div class="framework-item reveal">
+          <div class="framework-body">
+            <div class="framework-top">
+              <span class="framework-num">5</span>
+              <h4>Recruitment Pipeline</h4>
+            </div>
+            <ul class="framework-bullets">
+              <li>Specific job listings with role descriptions and requirements</li>
+              <li>Clear benefits and value propositions for each worker type</li>
+              <li>Streamlined inline application with resume upload</li>
+              <li>Staff testimonials showing what it's like to work at Better Lives</li>
+              <li>Facility job-posting intelligence used to target understaffed facilities</li>
+            </ul>
+          </div>
+          <div class="framework-footer">
+            <span class="agent-chip agent-chip-web">Website</span>
+            <span class="agent-chip agent-chip-ai">Stan</span>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- SECTION 3: QUESTIONS -->
-  <section class="page-section" id="questions">
+  <!-- ══════════════════════ SECTION 04 — QUESTIONS ══════════════════════ -->
+  <section class="page-section" id="questions" style="background: var(--bg-2);">
     <div class="section-inner">
-      <p class="section-label reveal">Section 03 — What I Need From You</p>
+      <p class="section-label reveal">Section 04 — What I Need From You</p>
       <h2 class="reveal">The answers that <em>shape the strategy</em></h2>
       <p class="q-section-intro reveal">Everything above was built from what I could learn externally — the website,
-        public records, and competitor research. The questions below are what I need from you to finalize the full plan.
-        I've grouped them so we can move through them in conversation. Click any group to expand it.</p>
+        public records, and competitor research. The questions below are what I need from you to finalise the full plan.
+        Click any group to expand it.</p>
 
       <!-- GROUP 01 -->
-      <div class="q-group reveal open">
+      <div class="q-group open reveal">
         <div class="q-group-header" onclick="toggleGroup(this)">
           <div class="q-group-header-left">
             <div class="q-group-num q-num-blue">01</div>
@@ -995,18 +1846,16 @@
             </div>
           </div>
           <div style="display:flex;align-items:center;gap:10px;">
-            <span class="q-group-count">8 questions</span>
+            <span class="q-group-count">7 questions</span>
             <span class="q-chevron">▾</span>
           </div>
         </div>
         <div class="q-body">
           <div class="q-item">How long has Better Lives been operating?</div>
-          <div class="q-item">What is the approximate monthly revenue currently?</div>
           <div class="q-item">How many active healthcare workers are on the roster right now?</div>
           <div class="q-item">How many facility clients does Better Lives serve regularly?</div>
           <div class="q-item">How many individual and family clients are currently active?</div>
-          <div class="q-item">What does a typical contract look like — per shift, weekly, monthly, or per placement?
-          </div>
+          <div class="q-item">How does billing typically work — per shift, weekly, monthly, or another structure?</div>
           <div class="q-item">What exactly is Tiffany's role in the day-to-day operations?</div>
           <div class="q-item">Who else is part of the core team — administration, scheduling, management?</div>
         </div>
@@ -1023,17 +1872,16 @@
             </div>
           </div>
           <div style="display:flex;align-items:center;gap:10px;">
-            <span class="q-group-count">6 questions</span>
+            <span class="q-group-count">5 questions</span>
             <span class="q-chevron">▾</span>
           </div>
         </div>
         <div class="q-body">
-          <div class="q-item">How do new clients (families) currently find Better Lives — word of mouth, phone calls,
+          <div class="q-item">How do new family clients currently find Better Lives — word of mouth, phone calls,
             website, referrals?</div>
           <div class="q-item">How do new facility clients currently find you?</div>
           <div class="q-item">What is the biggest reason a potential client doesn't move forward?</div>
           <div class="q-item">Does Better Lives accept Medicare, Medicaid, private insurance, or private pay only?</div>
-          <div class="q-item">What percentage of revenue comes through VA Community Care contracts?</div>
           <div class="q-item">Roughly how many enquiries per week or month does the business receive?</div>
         </div>
       </div>
@@ -1084,8 +1932,8 @@
           <div class="q-item">Walk me through what happens from the moment someone calls to a caregiver arriving at
             their home</div>
           <div class="q-item">Who currently answers the 24/7 phone line after hours?</div>
-          <div class="q-item">What is the biggest operational bottleneck right now — not enough workers, not enough
-            clients, or not enough capacity to manage what you have?</div>
+          <div class="q-item">What is the biggest operational bottleneck — not enough workers, not enough clients, or
+            not enough capacity to manage what you have?</div>
           <div class="q-item">What systems are currently used for scheduling, billing, and communication?</div>
         </div>
       </div>
@@ -1113,7 +1961,7 @@
           <div class="q-item">Would Tiffany and other team members be willing to be featured with photos and
             credentials?</div>
           <div class="q-item">Do you have professional photos of your caregivers in action, or would you be open to
-            arranging a photo session?</div>
+            arranging a session?</div>
           <div class="q-item">How many Google reviews does Better Lives currently have, and what is the average rating?
           </div>
           <div class="q-item">Would you be comfortable asking satisfied clients and families for written testimonials?
@@ -1140,14 +1988,13 @@
           <div class="q-item">When a family calls for the first time, what information do you need to determine if you
             can help them?</div>
           <div class="q-item">When a facility calls needing staff, what do they typically ask first?</div>
-          <div class="q-item">How quickly does someone currently respond to enquiries that come through the website?
-          </div>
+          <div class="q-item">How quickly are website enquiries typically responded to?</div>
           <div class="q-item">Would you be open to the website giving families and facilities separate, tailored entry
-            points and journeys?</div>
-          <div class="q-item">Would you be open to an AI-powered receptionist handling initial enquiries after office
-            hours, so no lead is ever lost to a voicemail?</div>
-          <div class="q-note">This is one of the Marblism AI team members — she can provide a warm, professional first
-            response to families calling at 10pm, then route the enquiry to you in the morning.</div>
+            points?</div>
+          <div class="q-item">Would you be open to an AI-powered receptionist handling initial enquiries after hours, so
+            no lead is ever lost to a voicemail?</div>
+          <div class="q-note">This is Rachel — one of the Marblism AI team members. She can provide a warm, professional
+            first response to families calling at 10pm, then route the enquiry to you in the morning.</div>
         </div>
       </div>
 
@@ -1169,12 +2016,11 @@
         <div class="q-body">
           <div class="q-item">Which counties currently generate the most business for Better Lives?</div>
           <div class="q-item">Which counties would you most like to grow into?</div>
-          <div class="q-item">Are there specific services that are more profitable or in higher demand than others?
-          </div>
-          <div class="q-item">Do families or clients ever ask the same questions repeatedly? Those questions become our
-            FAQ and blog content.</div>
-          <div class="q-item">Would you be willing to contribute to or approve blog content about home care topics,
-            caregiver advice, and healthcare insights?</div>
+          <div class="q-item">Are there specific services that are in higher demand than others?</div>
+          <div class="q-item">Do families or clients ever ask the same questions repeatedly? Those become our FAQ and
+            blog content.</div>
+          <div class="q-item">Would you be willing to contribute to or approve blog content about home care topics and
+            caregiver advice?</div>
           <div class="q-item">Has Better Lives ever been featured in any news articles, publications, or community
             events?</div>
         </div>
@@ -1198,10 +2044,8 @@
         <div class="q-body">
           <div class="q-item">Do you currently post jobs on Indeed, LinkedIn, or other job boards?</div>
           <div class="q-item">Are you competitive on pay rates compared to other agencies in Maryland?</div>
-          <div class="q-item">Would current staff be willing to share short testimonials about their experience working
-            at Better Lives?</div>
-          <div class="q-item">What certifications and licences do you require for each role type — HHA, CNA, LPN, RN?
-          </div>
+          <div class="q-item">Would current staff be willing to share short testimonials about their experience?</div>
+          <div class="q-item">What certifications and licences do you require for each role — HHA, CNA, LPN, RN?</div>
           <div class="q-item">Is there anything unique about working at Better Lives that other agencies don't offer?
           </div>
         </div>
@@ -1237,15 +2081,14 @@
     </div>
   </section>
 
-  <!-- SECTION 4: PATH FORWARD -->
-  <section class="page-section" id="path" style="background: var(--bg-2);">
+  <!-- ══════════════════════ SECTION 05 — PATH FORWARD ══════════════════════ -->
+  <section class="page-section" id="path">
     <div class="section-inner">
-      <p class="section-label reveal">Section 04 — What Comes Next</p>
+      <p class="section-label reveal">Section 05 — What Comes Next</p>
       <h2 class="reveal">From research <em>to results</em></h2>
-      <p class="subtitle reveal">Once I have your answers, I'll finalise the complete strategy — including the new
-        website architecture, the AI configuration, the content plan, and the specific metrics we'll track to measure
-        growth. I'll present it as an interactive proposal you can click through and experience before anything is
-        built.</p>
+      <p class="subtitle reveal">Once I have your answers, I'll finalise the complete strategy — the new website
+        architecture, the AI configuration, the content plan, and the metrics we'll use to track growth. I'll present it
+        as an interactive proposal you can experience before anything is built.</p>
 
       <div class="phase-flow">
         <div class="phase-step done">
@@ -1284,7 +2127,8 @@
 
   <!-- CLOSING -->
   <div class="closing-block reveal">
-    <!-- <blockquote>"The brief came first. The research came second. The structure came third. The build comes last."</blockquote> -->
+    <!-- <blockquote>"The brief came first. The research came second. The structure came third. The build comes last."
+    </blockquote> -->
     <cite>Newman Adesan — Better Lives Strategic Plan, 2026</cite>
   </div>
 
@@ -1304,10 +2148,10 @@
     const reveals = document.querySelectorAll('.reveal');
     const revealObs = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.08 });
+    }, { threshold: 0.06 });
     reveals.forEach(el => revealObs.observe(el));
 
-    // Phase steps
+    // Phase steps stagger
     const steps = document.querySelectorAll('.phase-step');
     const stepObs = new IntersectionObserver((entries) => {
       entries.forEach(e => {
@@ -1319,14 +2163,19 @@
     }, { threshold: 0.1 });
     steps.forEach(s => stepObs.observe(s));
 
-    // Accordion toggle
+    // Accordion
     function toggleGroup(header) {
       const group = header.closest('.q-group');
       const isOpen = group.classList.contains('open');
-      // Close all
       document.querySelectorAll('.q-group').forEach(g => g.classList.remove('open'));
-      // Open this one if it was closed
       if (!isOpen) group.classList.add('open');
+    }
+
+    // Mobile nav
+    function toggleMobileNav() {
+      document.querySelector('.nav-hamburger').classList.toggle('open');
+      document.querySelector('.mobile-overlay').classList.toggle('open');
+      document.querySelector('.mobile-panel').classList.toggle('open');
     }
   </script>
 </body>
